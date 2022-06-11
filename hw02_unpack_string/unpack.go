@@ -2,7 +2,6 @@ package hw02unpackstring
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 	"strings"
 	"unicode"
@@ -17,8 +16,6 @@ func Unpack(input string) (string, error) {
 		return "", nil
 	}
 
-	fmt.Println("input", input, len(input))
-
 	for index, character := range input {
 		if index > len(input)-2 {
 			if !unicode.IsDigit(character) {
@@ -32,9 +29,7 @@ func Unpack(input string) (string, error) {
 		isDigit := unicode.IsDigit(character)
 		isDigitNext := unicode.IsDigit(rune(nextCharacter))
 
-		if unicode.IsDigit(character) && index == 0 {
-			return "", ErrInvalidString
-		} else if isDigit && isDigitNext {
+		if (unicode.IsDigit(character) && index == 0) || (isDigit && isDigitNext) {
 			return "", ErrInvalidString
 		}
 
@@ -42,13 +37,9 @@ func Unpack(input string) (string, error) {
 			if digit > 0 {
 				letters := strings.Repeat(string(character), digit)
 				unpacked.WriteString(letters)
-			} else {
-				continue
 			}
 		} else {
-			if unicode.IsDigit(character) {
-				continue
-			} else {
+			if !unicode.IsDigit(character) {
 				unpacked.WriteString(string(character))
 			}
 		}
