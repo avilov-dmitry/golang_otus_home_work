@@ -17,24 +17,37 @@ func Unpack(input string) (string, error) {
 		return "", nil
 	}
 
-	fmt.Println("input", input)
+	fmt.Println("input", input, len(input))
 
 	for index, character := range input {
-		if index == 0 {
-			unpacked.WriteString(string(character))
-		} else {
-			digit, _ := strconv.Atoi(string(character))
-			previous := string(input[index-1])
+		if index > len(input)-2 {
+			if !unicode.IsDigit(character) {
+				unpacked.WriteString(string(character))
+			}
+			break
+		} else if unicode.IsDigit(character) && index == 0 {
+			return "", ErrInvalidString
+		}
 
-			if unicode.IsDigit(character) && digit > 0 {
-				letters := strings.Repeat(previous, digit-1)
+		nextCharacter := input[index+1]
+
+		digit, _ := strconv.Atoi(string(nextCharacter))
+		fmt.Println("digit", digit)
+
+		if unicode.IsDigit(rune(nextCharacter)) {
+			if digit > 0 {
+				letters := strings.Repeat(string(character), digit)
 				unpacked.WriteString(letters)
+			} else {
+				continue
+			}
+		} else {
+			if unicode.IsDigit(character) {
+				continue
 			} else {
 				unpacked.WriteString(string(character))
 			}
 		}
-		fmt.Println(string(character), unpacked.String())
-
 	}
 
 	return unpacked.String(), nil
