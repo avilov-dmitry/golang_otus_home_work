@@ -25,16 +25,20 @@ func Unpack(input string) (string, error) {
 				unpacked.WriteString(string(character))
 			}
 			break
-		} else if unicode.IsDigit(character) && index == 0 {
-			return "", ErrInvalidString
 		}
 
 		nextCharacter := input[index+1]
-
 		digit, _ := strconv.Atoi(string(nextCharacter))
-		fmt.Println("digit", digit)
+		isDigit := unicode.IsDigit(character)
+		isDigitNext := unicode.IsDigit(rune(nextCharacter))
 
-		if unicode.IsDigit(rune(nextCharacter)) {
+		if unicode.IsDigit(character) && index == 0 {
+			return "", ErrInvalidString
+		} else if isDigit && isDigitNext {
+			return "", ErrInvalidString
+		}
+
+		if isDigitNext {
 			if digit > 0 {
 				letters := strings.Repeat(string(character), digit)
 				unpacked.WriteString(letters)
