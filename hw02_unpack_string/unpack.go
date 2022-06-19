@@ -37,23 +37,23 @@ func Unpack(input string) (string, error) {
 
 		if isDigit {
 			continue
-		} else {
-			if isDigitNext {
-				digit, err := strconv.Atoi(string(nextCharacter))
+		}
 
-				if err != nil {
-					return "", ErrInvalidString
-				}
+		if isDigitNext {
+			digit, err := strconv.Atoi(string(nextCharacter))
 
-				if digit > 0 {
-
-					for i := 0; i < digit; i++ {
-						unpacked.WriteRune(character)
-					}
-				}
-			} else {
-				unpacked.WriteRune(character)
+			if err != nil {
+				return "", ErrInvalidString
 			}
+
+			if digit > 0 {
+
+				for i := 0; i < digit; i++ {
+					unpacked.WriteRune(character)
+				}
+			}
+		} else {
+			unpacked.WriteRune(character)
 		}
 
 	}
