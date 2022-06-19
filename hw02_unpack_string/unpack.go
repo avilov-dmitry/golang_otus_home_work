@@ -19,7 +19,6 @@ func Unpack(input string) (string, error) {
 	inputUTF := []rune(input)
 
 	for index, character := range inputUTF {
-
 		if index > len(inputUTF)-2 {
 			if !unicode.IsDigit(character) {
 				unpacked.WriteString(string(character))
@@ -29,7 +28,7 @@ func Unpack(input string) (string, error) {
 
 		nextCharacter := inputUTF[index+1]
 		isDigit := unicode.IsDigit(character)
-		isDigitNext := unicode.IsDigit(rune(nextCharacter))
+		isDigitNext := unicode.IsDigit(nextCharacter)
 
 		if (isDigit && index == 0) || (isDigit && isDigitNext) {
 			return "", ErrInvalidString
@@ -41,13 +40,11 @@ func Unpack(input string) (string, error) {
 
 		if isDigitNext {
 			digit, err := strconv.Atoi(string(nextCharacter))
-
 			if err != nil {
 				return "", ErrInvalidString
 			}
 
 			if digit > 0 {
-
 				for i := 0; i < digit; i++ {
 					unpacked.WriteRune(character)
 				}
@@ -55,7 +52,6 @@ func Unpack(input string) (string, error) {
 		} else {
 			unpacked.WriteRune(character)
 		}
-
 	}
 
 	return unpacked.String(), nil
