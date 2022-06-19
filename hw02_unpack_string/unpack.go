@@ -16,15 +16,18 @@ func Unpack(input string) (string, error) {
 		return "", nil
 	}
 
-	for index, character := range input {
-		if index > len(input)-2 {
+	inputUTF := []rune(input)
+
+	for index, character := range inputUTF {
+
+		if index > len(inputUTF)-2 {
 			if !unicode.IsDigit(character) {
 				unpacked.WriteString(string(character))
 			}
 			break
 		}
 
-		nextCharacter := input[index+1]
+		nextCharacter := inputUTF[index+1]
 		isDigit := unicode.IsDigit(character)
 		isDigitNext := unicode.IsDigit(rune(nextCharacter))
 
@@ -43,13 +46,13 @@ func Unpack(input string) (string, error) {
 				}
 
 				if digit > 0 {
-					letters := strings.Repeat(string(character), digit)
-					unpacked.WriteString(letters)
+
+					for i := 0; i < digit; i++ {
+						unpacked.WriteRune(character)
+					}
 				}
 			} else {
-				if !isDigit {
-					unpacked.WriteString(string(character))
-				}
+				unpacked.WriteRune(character)
 			}
 		}
 
