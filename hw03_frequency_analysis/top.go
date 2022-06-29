@@ -14,7 +14,7 @@ func getCounter() CountWordsCalbackType {
 	return func(word string) map[string]int {
 		if word != "" {
 			if result[word] > 0 {
-				result[word] += 1
+				result[word]++
 			} else {
 				result[word] = 1
 			}
@@ -26,7 +26,7 @@ func getCounter() CountWordsCalbackType {
 
 func Top10(enter string) []string {
 	if len(enter) == 0 {
-		result := make([]string, 0, 0)
+		result := make([]string, 0)
 		return result
 	}
 	countWords := getCounter()
@@ -43,7 +43,7 @@ func Top10(enter string) []string {
 		Value int
 	}
 
-	var ss []kv
+	var ss = make([]kv, 0)
 	var result []string
 
 	for k, v := range m {
