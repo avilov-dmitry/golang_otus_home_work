@@ -43,9 +43,25 @@ var text = `Как видите, он  спускается  по  лестни�
 	посидеть у огня и послушать какую-нибудь интересную сказку.
 		В этот вечер...`
 
+var englishText = `The Dursleys had everything they wanted, but they 
+	also had a secret, and their greatest fear was that somebody would discover it.
+	They did not think they could bear it if anyone found out about the Potters. Mrs.
+	Potter was Mrs. Dursley sister, but they did not met for several years; in fact,
+	Mrs. Dursley pretended she did not have a sister, because her sister and her
+	good-for-nothing husband were as unDursleyish as it was possible to be.
+	The Dursleys shuddered to think what the neighbors would say if the Potters
+	arrived in the street. The Dursleys knew that the Potters had a small son, too,
+	but they had never even seen him. This boy was another good reason for keeping the
+	Potters away; they did not want Dudley mixing with a child like th-at.`
+
 func TestTop10(t *testing.T) {
 	t.Run("no words in empty string", func(t *testing.T) {
 		require.Len(t, Top10(""), 0)
+	})
+
+	t.Run("correct for 1 word", func(t *testing.T) {
+		expected := []string{"Одно.оооочень.большое,слово!сознаками@препинания"}
+		require.Equal(t, expected, Top10("Одно.оооочень.большое,слово!сознаками@препинания"))
 	})
 
 	t.Run("positive test", func(t *testing.T) {
@@ -79,4 +95,20 @@ func TestTop10(t *testing.T) {
 			require.Equal(t, expected, Top10(text))
 		}
 	})
+
+	// t.Run("positive test", func(t *testing.T) {
+	// 	expected := []string{
+	// 		"the",      // 6
+	// 		"they",     // 6
+	// 		"a",        // 4
+	// 		"did",      // 4
+	// 		"not",      // 4
+	// 		"had",      // 4
+	// 		"was",      // 4
+	// 		"but",      // 3
+	// 		"for",      // 3
+	// 		"Dursleys", // 3
+	// 	}
+	// 	require.Equal(t, expected, Top10(englishText))
+	// })
 }
