@@ -29,24 +29,24 @@ func Top10(enter string) []string {
 		result := make([]string, 0)
 		return result
 	}
-	countWords := getCounter()
-	enterArr := strings.Fields(enter)
 
-	for _, word := range enterArr {
+	countWords := getCounter()
+
+	for _, word := range strings.Fields(enter) {
 		countWords(word)
 	}
 
-	m := countWords("")
+	countedMap := countWords("")
 
 	type kv struct {
 		Key   string
 		Value int
 	}
 
-	var ss = make([]kv, 0)
+	ss := make([]kv, 0, len(countedMap))
 	var result []string
 
-	for k, v := range m {
+	for k, v := range countedMap {
 		ss = append(ss, kv{k, v})
 	}
 
