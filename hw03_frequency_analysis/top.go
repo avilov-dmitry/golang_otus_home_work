@@ -33,13 +33,7 @@ func Top10(enter string) []string {
 	enterArr := strings.Fields(enter)
 
 	for _, word := range enterArr {
-		if strings.Contains(word, "-") {
-			for _, u := range strings.Split(word, "-") {
-				countWords(u)
-			}
-		} else {
-			countWords(word)
-		}
+		countWords(word)
 	}
 
 	m := countWords("")
@@ -57,6 +51,9 @@ func Top10(enter string) []string {
 	}
 
 	sort.Slice(ss, func(i, j int) bool {
+		if ss[i].Value == ss[j].Value {
+			return ss[i].Key < ss[j].Key
+		}
 		return ss[i].Value > ss[j].Value
 	})
 
