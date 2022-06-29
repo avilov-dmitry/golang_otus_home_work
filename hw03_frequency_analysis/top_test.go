@@ -60,8 +60,17 @@ func TestTop10(t *testing.T) {
 	})
 
 	t.Run("correct for 1 word", func(t *testing.T) {
+		input := "Одно.оооочень.большое,слово!сознаками@препинания"
 		expected := []string{"Одно.оооочень.большое,слово!сознаками@препинания"}
-		require.Equal(t, expected, Top10("Одно.оооочень.большое,слово!сознаками@препинания"))
+		require.Equal(t, expected, Top10(input))
+		require.Len(t, Top10(input), 1)
+	})
+
+	t.Run("less than 10 words", func(t *testing.T) {
+		input := "one two 3 four пять 6 семь eight nine"
+		expected := []string{"3", "6", "eight", "four", "nine", "one", "two", "пять", "семь"}
+		require.Equal(t, expected, Top10(input))
+		require.Len(t, Top10(input), 9)
 	})
 
 	t.Run("positive test", func(t *testing.T) {
