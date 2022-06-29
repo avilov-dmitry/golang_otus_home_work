@@ -1,7 +1,6 @@
 package hw03frequencyanalysis
 
 import (
-	"fmt"
 	"sort"
 	"strings"
 )
@@ -29,21 +28,21 @@ func getCounter() CountWordsCalbackType {
 	}
 }
 
-func sortCountedMap(countedMap map[string]int) (ss []kv) {
-	ss = make([]kv, 0, len(countedMap))
+func sortCountedMap(countedMap map[string]int) (sorted []kv) {
+	sorted = make([]kv, 0, len(countedMap))
 
 	for k, v := range countedMap {
-		ss = append(ss, kv{k, v})
+		sorted = append(sorted, kv{k, v})
 	}
 
-	sort.Slice(ss, func(i, j int) bool {
-		if ss[i].Value == ss[j].Value {
-			return ss[i].Key < ss[j].Key
+	sort.Slice(sorted, func(i, j int) bool {
+		if sorted[i].Value == sorted[j].Value {
+			return sorted[i].Key < sorted[j].Key
 		}
-		return ss[i].Value > ss[j].Value
+		return sorted[i].Value > sorted[j].Value
 	})
 
-	return ss
+	return sorted
 }
 
 func Top10(enter string) []string {
@@ -59,18 +58,16 @@ func Top10(enter string) []string {
 	}
 
 	sorted := sortCountedMap(countedMap)
-	var result []string
-
 	maxLength := len(sorted)
 
 	if maxLength > 10 {
 		maxLength = 10
 	}
 
+	var result []string
+
 	for i := 0; i < maxLength; i++ {
-		kv := sorted[i]
-		fmt.Printf("%s %d\n", kv.Key, kv.Value)
-		result = append(result, kv.Key)
+		result = append(result, sorted[i].Key)
 	}
 
 	return result
