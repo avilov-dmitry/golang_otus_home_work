@@ -19,7 +19,9 @@ func Unpack(input string) (string, error) {
 	inputUTF := []rune(input)
 
 	for index, character := range inputUTF {
-		if index > len(inputUTF)-2 {
+		lastIndex := len(inputUTF) - 2
+
+		if index > lastIndex {
 			if !unicode.IsDigit(character) {
 				unpacked.WriteString(string(character))
 			}
