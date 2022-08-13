@@ -8,10 +8,14 @@ type (
 
 type Stage func(in In) (out Out)
 
+// ExecutePipeline builds pipelines from stages.
+// If stages sis nil It'll be skipped.
 func ExecutePipeline(in In, done In, stages ...Stage) Out {
-	out := in
+	out := wrapWithDone(in, done)
 	for _, stage := range stages {
-		out = stage(wrapWithDone(out, done))
+		if stage != nil {
+			out = stage(wrapWithDone(out, done))
+		}
 	}
 	return out
 }
