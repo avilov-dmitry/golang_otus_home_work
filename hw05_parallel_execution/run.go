@@ -14,7 +14,7 @@ var (
 type Task func() error
 
 // Run starts tasks in n goroutines and stops its work when receiving m errors from tasks.
-// M <= 0 means no error limit
+// M <= 0 means no error limit.
 func Run(tasks []Task, n, m int) error {
 	if n <= 0 {
 		return ErrInvalidN
