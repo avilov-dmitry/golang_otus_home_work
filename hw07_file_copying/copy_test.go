@@ -45,5 +45,4 @@ func TestCopy(t *testing.T) {
 			require.Equal(t, tcase.expected, string(b))
 		})
 	}
-
 }
