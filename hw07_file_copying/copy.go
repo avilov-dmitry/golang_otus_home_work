@@ -15,17 +15,15 @@ var (
 	ErrOffsetExceedsFileSize = errors.New("offset exceeds file size")
 )
 
-const (
-	chunkSize int64 = 100
-)
+const chunkSize int64 = 100
 
 func showError(err error) error {
 	return fmt.Errorf("error while copy file: %w", err)
 }
 
-func doClose(closer io.Closer) {
+func closeFile(closer io.Closer) {
 	if err := closer.Close(); err != nil {
-		log.Println("error while close: ", err)
+		log.Println("error while close file: ", err)
 	}
 }
 
@@ -34,7 +32,7 @@ func Copy(fromPath, toPath string, offset, limit int64) (err error) {
 	if err != nil {
 		return showError(err)
 	}
-	defer doClose(in)
+	defer closeFile(in)
 
 	fileInfo, err := in.Stat()
 	if err != nil {
@@ -55,7 +53,7 @@ func Copy(fromPath, toPath string, offset, limit int64) (err error) {
 	if err != nil {
 		return showError(err)
 	}
-	defer doClose(out)
+	defer closeFile(out)
 
 	if _, err = in.Seek(offset, io.SeekStart); err != nil {
 		return showError(err)
