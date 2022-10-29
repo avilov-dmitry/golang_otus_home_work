@@ -23,6 +23,15 @@ type telnetClient struct {
 	timeout time.Duration
 }
 
+func NewTelnetClient(address string, timeout time.Duration, in io.ReadCloser, out io.Writer) TelnetClient {
+	return &telnetClient{
+		in:      in,
+		out:     out,
+		addr:    address,
+		timeout: timeout,
+	}
+}
+
 func (tc *telnetClient) Connect() error {
 	conn, err := net.DialTimeout("tcp", tc.addr, tc.timeout)
 	if err != nil {
@@ -56,13 +65,4 @@ func (tc *telnetClient) Receive() error {
 	}
 
 	return nil
-}
-
-func NewTelnetClient(address string, timeout time.Duration, in io.ReadCloser, out io.Writer) TelnetClient {
-	return &telnetClient{
-		in:      in,
-		out:     out,
-		addr:    address,
-		timeout: timeout,
-	}
 }
