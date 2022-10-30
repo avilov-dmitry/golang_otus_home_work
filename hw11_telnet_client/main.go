@@ -14,18 +14,21 @@ import (
 
 const defaultTimeout = 10 * time.Second
 
+func checkServerAddres(host string, port string) {
+	if host == "" {
+		log.Fatal("host is not valid")
+	}
+	if port == "" {
+		log.Fatal("port is not valid")
+	}
+}
+
 func main() {
 	timeout := flag.Duration("timeout", defaultTimeout, "timeout to connect")
 	flag.Parse()
 
 	host, port := flag.Arg(0), flag.Arg(1)
-	if host == "" {
-		log.Fatal("host is not valid")
-	}
-
-	if port == "" {
-		log.Fatal("port is not valid")
-	}
+	checkServerAddres(host, port)
 
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT)
 	defer cancel()
