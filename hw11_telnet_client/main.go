@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"log"
 	"net"
 	"os"
 	"os/signal"
@@ -19,8 +20,7 @@ func main() {
 
 	host, port := flag.Arg(0), flag.Arg(1)
 	if host == "" || port == "" {
-		fmt.Fprint(os.Stderr, "server address is not valid")
-		return
+		log.Fatal("server address is not valid")
 	}
 
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT)
@@ -31,8 +31,7 @@ func main() {
 	tc := NewTelnetClient(addr, *timeout, os.Stdin, os.Stdout)
 
 	if err := tc.Connect(); err != nil {
-		fmt.Fprint(os.Stderr, err.Error())
-		return
+		log.Fatal(err.Error())
 	}
 	defer tc.Close()
 
