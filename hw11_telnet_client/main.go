@@ -19,8 +19,12 @@ func main() {
 	flag.Parse()
 
 	host, port := flag.Arg(0), flag.Arg(1)
-	if host == "" || port == "" {
-		log.Fatal("server address is not valid")
+	if host == "" {
+		log.Fatal("host is not valid")
+	}
+
+	if port == "" {
+		log.Fatal("port is not valid")
 	}
 
 	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT)
