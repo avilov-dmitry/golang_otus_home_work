@@ -4,7 +4,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"log"
 	"net"
 	"os"
 	"os/signal"
@@ -36,7 +35,8 @@ func main() {
 	tc := NewTelnetClient(addr, *timeout, os.Stdin, os.Stdout)
 
 	if err := tc.Connect(); err != nil {
-		log.Fatal(err.Error())
+		fmt.Fprint(os.Stderr, err.Error())
+		return
 	}
 	defer tc.Close()
 

@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net"
+	"os"
 	"time"
 
 	"github.com/pkg/errors"
@@ -44,6 +46,11 @@ func (tc *telnetClient) Connect() error {
 }
 
 func (tc *telnetClient) Close() error {
+	if tc.conn == nil {
+		fmt.Fprint(os.Stderr, "go-telnet close connection")
+		return nil
+	}
+
 	if err := tc.conn.Close(); err != nil {
 		return errors.Wrap(err, "go-telnet close connection")
 	}
