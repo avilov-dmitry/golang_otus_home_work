@@ -156,12 +156,7 @@ func doValidate(kind reflect.Kind, field reflect.Value, r string) error {
 		return ErrInvalidValidationRule
 	}
 
-	err := doValidateValue(kind, field, ruleName, ruleValStr)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return doValidateValue(kind, field, ruleName, ruleValStr)
 }
 
 func doValidateValue(kind reflect.Kind, field reflect.Value, ruleName string, ruleValStr string) error {
