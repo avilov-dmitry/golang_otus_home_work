@@ -197,15 +197,10 @@ func validateIntIn(inStr string, val int64) error {
 		inInt = append(inInt, int64(vInt))
 	}
 
-	var ok bool
 	for _, n := range inInt {
 		if n == val {
-			ok = true
-			break
+			return nil
 		}
-	}
-	if ok {
-		return nil
 	}
 
 	valErrMsg := fmt.Sprintf(
