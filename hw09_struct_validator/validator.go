@@ -272,15 +272,10 @@ func validateStringRegexp(r string, val string) error {
 func validateStringIn(inStr string, val string) error {
 	in := strings.Split(inStr, ",")
 
-	var ok bool
 	for _, n := range in {
 		if n == val {
-			ok = true
-			break
+			return nil
 		}
-	}
-	if ok {
-		return nil
 	}
 
 	valErrMsg := fmt.Sprintf(
