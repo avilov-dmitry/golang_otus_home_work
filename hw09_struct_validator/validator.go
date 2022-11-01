@@ -79,7 +79,7 @@ func Validate(v interface{}) error {
 		}
 	}
 
-	if len(ve) <= 0 {
+	if !(len(ve) > 0) {
 		return nil
 	}
 
