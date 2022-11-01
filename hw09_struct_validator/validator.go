@@ -45,9 +45,6 @@ func (ve *ValidationErrors) Add(field string, err error) {
 }
 
 func (v ValidationError) Error() string {
-	if v.Err == nil {
-		return ""
-	}
 	return v.Err.Error()
 }
 
@@ -82,7 +79,7 @@ func Validate(v interface{}) error {
 		}
 	}
 
-	if !hasValidationErrors(ve) {
+	if len(ve) <= 0 {
 		return nil
 	}
 
@@ -147,10 +144,6 @@ func validationTagValue(typeField reflect.StructField) string {
 
 func validationRules(rules string) []string {
 	return strings.Split(rules, "|")
-}
-
-func hasValidationErrors(ve ValidationErrors) bool {
-	return len(ve) > 0
 }
 
 func isIterable(kind reflect.Kind) bool {
