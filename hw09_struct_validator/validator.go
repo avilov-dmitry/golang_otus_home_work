@@ -121,15 +121,8 @@ func validateStruct(field reflect.Value, r string, ve *ValidationErrors, typeFie
 	sliceVal := reflect.ValueOf(field.Interface())
 	for i := 0; i < sliceVal.Len(); i++ {
 		sliceElem := sliceVal.Index(i)
-		err := doValidate(sliceElem.Kind(), sliceElem, r)
-		if err == nil {
-			continue
-		}
-		if errors.Is(err, ErrInvalidValidationValue) {
-			ve.Add(typeField.Name, err)
-			continue
-		}
-		return err
+
+		return validateSingle(typeField, sliceElem, r, ve)
 	}
 	return nil
 }
