@@ -19,11 +19,11 @@ type Config struct {
 // Server декларирует REST сервер.
 type Server struct {
 	httpServer *http.Server
-	m          Model
+	m          Repository
 }
 
-// Model декларирует контракт модели.
-type Model interface {
+// Repository декларирует контракт модели.
+type Repository interface {
 	// CreateEvent создать событие.
 	CreateEvent(ctx context.Context, e *calendar.Event) (*calendar.Event, error)
 
@@ -41,7 +41,7 @@ type Model interface {
 }
 
 // New инициализирует REST.
-func New(cfg Config, m Model) Server {
+func New(cfg Config, m Repository) Server {
 	return Server{
 		httpServer: &http.Server{
 			Addr: cfg.Address,

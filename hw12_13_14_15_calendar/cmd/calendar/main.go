@@ -66,7 +66,7 @@ func run(config *Config) error {
 		Debug().
 		Msg("start application")
 
-	var restModel rest.Model
+	var restModel rest.Repository
 
 	switch config.DBDriver {
 	case inmem.Key:
@@ -160,7 +160,7 @@ func run(config *Config) error {
 }
 
 // newRESTServer создает REST сервер.
-func newRESTServer(config RESTConfig, model rest.Model) rest.Server {
+func newRESTServer(config RESTConfig, model rest.Repository) rest.Server {
 	serverCfg := rest.Config{
 		Address: config.Address,
 	}
