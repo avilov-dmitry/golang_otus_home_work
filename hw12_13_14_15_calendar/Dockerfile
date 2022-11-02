@@ -4,11 +4,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN echo
 RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o /app/calendar ./cmd/calendar
 
-FROM alpine
+FROM scratch
 
 COPY --from=builder /app .
 
