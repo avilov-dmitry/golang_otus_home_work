@@ -4,10 +4,9 @@ import (
 	"context"
 	"net/http"
 
+	calendar "github.com/avilov-dmitry/golang_otus_home_work/tree/master/hw12_13_14_15_calendar"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
-
-	"github.com/RomanSarvarov/otus_go_home_work/calendar"
 )
 
 // Config декларирует настройки REST.

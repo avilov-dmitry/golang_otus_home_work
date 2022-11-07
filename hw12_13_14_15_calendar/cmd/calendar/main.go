@@ -14,10 +14,10 @@ import (
 	"github.com/rs/zerolog/log"
 	flag "github.com/spf13/pflag"
 
-	"github.com/RomanSarvarov/otus_go_home_work/calendar/api/rest"
-	"github.com/RomanSarvarov/otus_go_home_work/calendar/inmem"
-	"github.com/RomanSarvarov/otus_go_home_work/calendar/pkg/closer"
-	"github.com/RomanSarvarov/otus_go_home_work/calendar/postgres"
+	"github.com/avilov-dmitry/golang_otus_home_work/hw12_13_14_15_calendar/api/rest"
+	"github.com/avilov-dmitry/golang_otus_home_work/hw12_13_14_15_calendar/inmem"
+	"github.com/avilov-dmitry/golang_otus_home_work/hw12_13_14_15_calendar/pkg/closer"
+	"github.com/avilov-dmitry/golang_otus_home_work/hw12_13_14_15_calendar/postgres"
 )
 
 // migrationsDir определяет местонахождение миграций.
