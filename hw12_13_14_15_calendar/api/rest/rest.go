@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	calendar "github.com/avilov-dmitry/golang_otus_home_work/tree/master/hw12_13_14_15_calendar"
+	calendar "github.com/avilov-dmitry/golang_otus_home_work/hw12_13_14_15_calendar"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )
