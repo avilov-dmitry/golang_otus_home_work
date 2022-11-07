@@ -26,7 +26,7 @@ build:
 	go build ./cmd/calendar
 
 run:
-	go run ./cmd/calendar --config=.env
+	go run ./cmd/calendar
 
 test:
 	go test -race ./...
